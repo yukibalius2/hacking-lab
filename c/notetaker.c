@@ -39,7 +39,7 @@ int main(int argc, char *argv[]){
         fatal("main()内,ファイルのオープン中にエラーが発生しました．");
     printf("[DEBUG]ファイル記述子：%d\n",fd);
 
-    userid = getuid();//実ユーザーIDを取得する．
+    userid = getuid();
 
     //データの書き込み
     if(write(fd, &userid, 4) == -1)//メモの前にユーザーＩＤを書き込む
