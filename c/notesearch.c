@@ -5,9 +5,9 @@
 #include<sys/stat.h>
 #include"hacking.h"
 #include<unistd.h>
-#define FILENAME "C:/var/notes"
+#define FILENAME "/var/notes"
 
-int print_note(int, int, char *);//メモの出力関数
+int print_notes(int, int, char *);//メモの出力関数
 int find_user_note(int, int);//特定ユーザーのメモをファイルから検索する関数
 int search_note(char *, char *);//キーワード検索関数
 void fatal(char *);
@@ -47,7 +47,7 @@ int print_notes(int fd, int uid, char *searchstring){
     note_buffer[note_length] = 0;//文字列を終了させる
 
     if(search_note(note_buffer, searchstring))//検索文字列が見つかった場合
-        printf(note_buffer);
+        printf("%s",note_buffer);
     return 1;
 }
 
