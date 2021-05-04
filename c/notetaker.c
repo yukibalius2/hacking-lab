@@ -22,7 +22,7 @@ int main(int argc, char *argv[]){
 
     buffer = (char *)ec_malloc(100);
     datafile = (char *)ec_malloc(20);
-    strcpy(datafile, "C:/var/notes");
+    strcpy(datafile, "/var/notes");
 
     if(argc < 2)
         usage(argv[0], datafile);

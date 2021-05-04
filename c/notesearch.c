@@ -5,9 +5,9 @@
 #include<sys/stat.h>
 #include"hacking.h"
 #include<unistd.h>
-#define FILENAME "C:/var/notes"
+#define FILENAME "/var/notes"
 
-int print_note(int, int, char *);//メモの出力関数
+int print_notes(int, int, char *);//メモの出力関数
 int find_user_note(int, int);//特定ユーザーのメモをファイルから検索する関数
 int search_note(char *, char *);//キーワード検索関数
 void fatal(char *);
@@ -16,8 +16,8 @@ int main(int argc, char *argv[]){
     int userid, printing=1, fd;//ファイル記述子
     char searchstring[100];
 
-    if(argc > 1)　                    //コマンドライン引数が指定されている場合
-        strcpy(searchstring, srgv[1]);//検索文字列として扱う
+    if(argc > 1)                   //コマンドライン引数が指定されている場合
+        strcpy(searchstring, argv[1]);//検索文字列として扱う
     else                              //そうでない場合
         searchstring[0] = 0;          //検索文字列を空に設定する
 
@@ -47,7 +47,7 @@ int print_notes(int fd, int uid, char *searchstring){
     note_buffer[note_length] = 0;//文字列を終了させる
 
     if(search_note(note_buffer, searchstring))//検索文字列が見つかった場合
-        printf(note_buffer);
+        printf("%s",note_buffer);
     return 1;
 }
 
@@ -74,7 +74,7 @@ int find_user_note(int fd, int user_uid){
     }
     lseek(fd, length * -1L, SEEK_CUR);//lengthバイトだけ，ファイルを巻き戻す
 
-    printf("[DEBUG] uid %dの%dバイトのメモをみつけました\n",note_uid, lenght);
+    printf("[DEBUG] uid %dの%dバイトのメモをみつけました\n",note_uid, length);
     return length;
 }
 
@@ -89,7 +89,7 @@ int search_note(char *note, char *keyword){
 
     for(i=0; i < strlen(note); i++){//メモの書くバイトごとに繰り返す
         if(note[i] == keyword[match])//バイトがキーワードと合致した場合
-            match++//次のバイトのチェック準備を行う
+            match++;//次のバイトのチェック準備を行う
         else{
             if(note[i] = keyword[0])
                 match = 1;//1からマッチングを開始する
